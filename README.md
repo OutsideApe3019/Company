@@ -11,7 +11,7 @@ This is a test website that can be used for a template
 
 ## Working
 - Posts with comments
-- User profine page
+- User profile page
 - Hover and click effect (when there is an username, email, first name, last name) that redirect to the user profile page
 - Private messages
 - Alerts that can be send from the admin panel
