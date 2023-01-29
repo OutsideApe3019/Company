@@ -83,7 +83,6 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         $ticketMsgs = TicketMsg::where('ticketId', '=', $id)->get();
 
-        // check if ticket is null and if is write: "abort(404)"
         if ($ticket == null) {
             abort(404);
         }
