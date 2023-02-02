@@ -35,3 +35,18 @@ body {
         display: inline-block !important;
     }
 }
+
+@media (max-width: 428px) {
+    .user.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .user.scroll .scrollable {
+        display: inline-block !important;
+    }
+
+    .user.scroll.scrollable .buttons {
+        margin-left: 15px !important;
+    }
+}

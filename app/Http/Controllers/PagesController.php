@@ -104,4 +104,17 @@ class PagesController extends Controller
         return view('panel.tickets.view', ['ticket' => $ticket, 'ticketMsgs' => $ticketMsgs, 'page' => 'Panel / Tickets - '. $ticket->id]);
     }
 
+    public function user($username) {
+        $user = User::where('username', '=', $username)->first();
+
+        if($user == null) {
+            return abort(404);
+        }
+
+        return view('users.index', ['page' => 'User / ' . $username, 'user' => $user]);
+    }
+
+    public function editDelete() {
+        return view('settings.delete', ['page' => 'Delete account']);
+    }
 }

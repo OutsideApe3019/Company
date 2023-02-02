@@ -5,8 +5,9 @@
     @php
         use App\Models\User;
         use App\Models\Ticket;
-
-        // Ticket::factory()->count(50)->make();
+        
+        $totalTickets = Ticket::where('status', 'open')->count();
+        $totalClosedTickets = Ticket::where('status', 'closed')->count();
     @endphp
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -21,6 +22,19 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        <div class="d-flex justify-content-around">
+                            <div
+                                class="btn @if ($totalTickets > 0) btn-warning @else btn-success @endif text-center">
+                                <span class="fs-1">{{ $totalTickets }}</span>
+                                <br>
+                                <span class="fs-5">total tickets.</span>
+                            </div>
+                            <div class="btn btn-primary text-center">
+                                <span class="fs-1">{{ $totalClosedTickets }}</span>
+                                <br>
+                                <span class="fs-5">total closed tickets.</span>
+                            </div>
+                        </div>
                         @if (!$tickets->isEmpty())
                             <br>
                             {{ $tickets->links() }}
@@ -41,13 +55,14 @@
                                         @foreach ($tickets as $ticket)
                                             @php
                                                 $user = User::find($ticket->senderId);
-                                                $user = $user->username;
                                             @endphp
 
                                             <tr>
                                                 <th scope="row">{{ $ticket->id }}</th>
                                                 <td>{{ $ticket->reason }}</td>
-                                                <td>{{ $user }}</td>
+                                                <td><a
+                                                        href="{{ route('user', ['username' => $user->username]) }}">{{ $user->username }}</a>
+                                                </td>
                                                 <td>
                                                     @if ($ticket->status == 'open')
                                                         <span class="badge bg-success p-2">Open</span>
@@ -57,7 +72,8 @@
                                                 </td>
                                                 <td>{{ $ticket->created_at }}</td>
                                                 <td>{{ $ticket->updated_at }}</td>
-                                                <td><a href="{{ route('panel.tickets.see', ['id' => $ticket->id]) }}" class="btn btn-primary">View</a></td>
+                                                <td><a href="{{ route('panel.tickets.see', ['id' => $ticket->id]) }}"
+                                                        class="btn btn-primary">View</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -67,7 +83,9 @@
                             {{ $tickets->links() }}
                             <br>
                         @else
-                            No tickets found.
+                            <br>
+                            <br>
+                            <p class="text-center">No tickets found.</p>
                         @endif
                     </div>
                 </div>

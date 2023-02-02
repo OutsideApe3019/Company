@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -61,6 +62,7 @@ Route::middleware('banned')->group(function () {
                     Route::get('/username', 'editUsername')->name('username');
                     Route::get('/email', 'editEmail')->name('email');
                     Route::get('/password', 'editPassword')->name('password');
+                    Route::get('/delete', 'editDelete')->name('delete');
                 });
 
                 Route::controller(UserController::class)->group(function () {
@@ -69,6 +71,7 @@ Route::middleware('banned')->group(function () {
                     Route::post('/username', 'editUsername');
                     Route::post('/email', 'editEmail');
                     Route::post('/password', 'editPassword');
+                    Route::post('/delete', 'editDelete');
                 });
             });
 
@@ -96,9 +99,10 @@ Route::middleware('banned')->group(function () {
         Route::get('/terms', 'terms')->name('terms');
         Route::get('/contact', 'contact')->name('contact');
         Route::get('/cookies', 'cookies')->name('cookies');
+        Route::get('/user/{username}', 'user')->name('user');
     });
 
     Auth::routes();
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });

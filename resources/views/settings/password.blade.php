@@ -36,23 +36,18 @@
 
                             <div class="mb-3">
                                 <label for="old_password" class="form-label">Old password</label>
-                                <input type="password" class="form-control @error('old_password') is-invalid @enderror @if (session('old_password')) is-invalid @endif"
+                                <input type="password" class="form-control @error('old_password') is-invalid @enderror"
                                     id="old_password" name="old_password">
                                 @error('old_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-
-                                @if (session('old_password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ session('old_password') }}</strong>
-                                    </span>
-                                @endif
                             </div>
 
-                            <a href="{{ route('settings') }}" class="btn btn-danger">Cancel</a> <button type="submit"
-                                class="btn btn-primary">Submit</button>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('settings') }}" class="btn btn-danger">Cancel</a> <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>
