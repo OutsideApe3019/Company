@@ -26,33 +26,35 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <div class="d-flex justify-content-around">
-                            <div class="btn btn-primary text-center">
-                                <span class="fs-1">{{ $totalUsers }}</span>
-                                <br>
-                                <span class="fs-5">total users.</span>
+                            <div class="scroll users banners">
+                                    <div class="btn btn-primary text-center">
+                                        <span class="fs-1">{{ $totalUsers }}</span>
+                                        <br>
+                                        <span class="fs-5">total users.</span>
+                                    </div>
+                                    <div class="btn @if($totalLastUsers > 0) btn-success @else btn-warning @endif text-center">
+                                        <span class="fs-1">{{ $totalLastUsers }}</span>
+                                        <br>
+                                        <span class="fs-5">users in the last 7 days.</span>
+                                    </div>
+                                    <div class="btn @if($totalBannedUsers > 0) btn-warning @else btn-success @endif text-center">
+                                        <span class="fs-1">{{ $totalBannedUsers }}</span>
+                                        <br>
+                                        <span class="fs-5">total banned users.</span>
+                                    </div>
+                                    <div class="btn @if($totalDeletedUsers > 0) btn-danger @else btn-success @endif text-center">
+                                        <span class="fs-1">{{ $totalDeletedUsers }}</span>
+                                        <br>
+                                        <span class="fs-5">total deleted users.</span>
+                                    </div>
+                                    <div class="btn btn-primary text-center">
+                                        <span class="fs-1">{{ $totalAdmins }}</span>
+                                        <br>
+                                        <span class="fs-5">total admins.</span>
+                                </div>
+                                
                             </div>
-                            <div class="btn @if($totalLastUsers > 0) btn-success @else btn-warning @endif text-center">
-                                <span class="fs-1">{{ $totalLastUsers }}</span>
-                                <br>
-                                <span class="fs-5">users in the last 7 days.</span>
-                            </div>
-                            <div class="btn @if($totalBannedUsers > 0) btn-warning @else btn-success @endif text-center">
-                                <span class="fs-1">{{ $totalBannedUsers }}</span>
-                                <br>
-                                <span class="fs-5">total banned users.</span>
-                            </div>
-                            <div class="btn @if($totalDeletedUsers > 0) btn-danger @else btn-success @endif text-center">
-                                <span class="fs-1">{{ $totalDeletedUsers }}</span>
-                                <br>
-                                <span class="fs-5">total deleted users.</span>
-                            </div>
-                            <div class="btn btn-primary text-center">
-                                <span class="fs-1">{{ $totalAdmins }}</span>
-                                <br>
-                                <span class="fs-5">total admins.</span>
-                            </div>
-                        </div>
+                        
                         <br>
                         {{ $users->links() }}
                         <br>
