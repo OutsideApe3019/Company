@@ -70,8 +70,8 @@
                                                         <span class="badge bg-danger p-2">Closed</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $ticket->created_at }}</td>
-                                                <td>{{ $ticket->updated_at }}</td>
+                                                <td>{{ Helpers::class()->date($ticket->created_at) }}</td>
+                                                <td>{{ Helpers::class()->date($ticket->updated_at) }}</td>
                                                 <td><a href="{{ route('panel.tickets.see', ['id' => $ticket->id]) }}"
                                                         class="btn btn-primary">View</a></td>
                                             </tr>

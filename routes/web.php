@@ -124,3 +124,7 @@ Route::middleware('banned')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 });
+
+Route::any('/test', function () {
+    return view('test');
+});

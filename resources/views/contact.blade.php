@@ -9,7 +9,7 @@
                         {{ __('Contact us') }}
                     </div>
                     <div class="card-body">
-                        <p>Email: <b>support@example.com</b>.</p>
+                        <p>Email: <b>support@company.com</b>.</p>
                         <p>Or contact us <b><a href="{{ route('support') }}">here</a></b>.</p>
                     </div>
                 </div>

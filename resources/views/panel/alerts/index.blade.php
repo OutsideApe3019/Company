@@ -85,8 +85,8 @@
                                                         <span class="badge bg-danger p-2">Not read</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $alert->created_at }}</td>
-                                                <td>{{ $alert->updated_at }}</td>
+                                                <td>{{ Helpers::class()->date($alert->created_at) }}</td>
+                                                <td>{{ Helpers::class()->date($alert->updated_at) }}</td>
                                                 <td>
                                                     <a href="{{ route('panel.alerts.show', ['id' => $alert->id]) }}" class="btn btn-primary">View</a>
                                                 </td>

@@ -102,13 +102,13 @@
                                                 <span class="badge bg-success p-2">Not banned</span>
                                             @endif
                                         </td>
-                                        <td>{{ $user->created_at }}</td>
-                                        <td>{{ $user->updated_at }}</td>
+                                        <td>{{ Helpers::class()->date($user->created_at) }}</td>
+                                        <td>{{ Helpers::class()->date($user->updated_at) }}</td>
                                         <td>
                                             @if ($user->deleted_at == null)
                                                 <span class="badge bg-primary p-2">Not deleted</span>
                                             @else
-                                                {{ $user->deleted_at }}
+                                                {{ Helpers::class()->date($user->deleted_at) }}
                                             @endif
                                         </td>
                                         @if ($user->deleted_at != null)
