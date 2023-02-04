@@ -51,6 +51,15 @@ Route::middleware('banned')->group(function () {
                 });
             });
 
+            Route::prefix('/alerts')->name('.alerts')->group(function () {
+                Route::controller(PagesController::class)->group(function () {
+                    Route::get('', 'panelAlerts');
+                    Route::get('create', 'panelAlertCreate')->name('.create');
+                    Route::get('/{id}', 'panelAlertShow')->name('.show');
+                });
+                Route::post('/create', [AdminController::class, 'createAlert'])->name('.create');
+            });
+
             Route::get('', [PagesController::class, 'panel']);
         });
 
@@ -80,8 +89,8 @@ Route::middleware('banned')->group(function () {
 
         Route::prefix('/ticket')->name('ticket.')->group(function () {
             Route::controller(PagesController::class)->group(function () {
-                Route::get('/view/{id}', [PagesController::class, 'ticketSee'])->name('see');
-                Route::get('/create', [PagesController::class, 'ticketCreate'])->name('create');
+                Route::get('/view/{id}', 'ticketSee')->name('see');
+                Route::get('/create', 'ticketCreate')->name('create');
             });
 
             Route::controller(TicketController::class)->group(function () {
@@ -89,6 +98,15 @@ Route::middleware('banned')->group(function () {
                 Route::post('/edit/{id}', 'edit')->name('edit');
                 Route::post('/close/{id}', 'close')->name('close');
                 Route::get('/delete/{id}', 'delete')->name('delete');
+            });
+        });
+
+        Route::prefix('/user')->name('user.')->group(function () {
+            Route::prefix('/alerts')->name('alerts')->group(function () {
+                Route::controller(PagesController::class)->group(function () {
+                    Route::get('/{id}', 'alertShow')->name('.show');
+                    Route::get('', 'alerts');
+                });
             });
         });
 

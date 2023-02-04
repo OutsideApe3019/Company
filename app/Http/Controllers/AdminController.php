@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Alert;
 use App\Models\TicketMsg;
 
 class AdminController extends Controller
@@ -120,5 +121,25 @@ class AdminController extends Controller
         $ticket->status = 'closed';
         $ticket->save();
         return redirect()->back()->with('success', 'Ticket closed successfully.');;
+    }
+
+    public function createAlert(Request $request) {
+        $validated = $request->validate([
+            'reciver' => ['required', 'string', 'exists:users,username'],
+            'title' => ['required', 'string', 'max:100'],
+            'text' => ['required', 'string', 'max:500'],
+        ]);
+
+        $user = User::where('username', $request->input('reciver'))->first();
+
+        $data = [
+            'userId' => $user->id,
+            'title' => $request->input('title'), 
+            'text' => $request->input('text'),
+        ];
+
+        Alert::create($data);
+
+        return redirect()->route('panel.alerts')->with('success', 'Alert created successfully.');
     }
 }

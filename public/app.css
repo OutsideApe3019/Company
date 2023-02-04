@@ -50,3 +50,9 @@ body {
         margin-left: 15px !important;
     }
 }
+
+@media (max-width: 767px) {
+    .mobile {
+        display: none !important;
+    }
+}

@@ -7,6 +7,7 @@ This is a test website that can be used for a template
 - User management
 - Ticket management
 - Admin panel with user and ticket management
+- Alerts that can be send (to the user) from the admin panel
 - Other things
 
 ## Working
@@ -14,4 +15,3 @@ This is a test website that can be used for a template
 - User profile page
 - Friends
 - Private messages
-- Alerts that can be send (to the user) from the admin panel

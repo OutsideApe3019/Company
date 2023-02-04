@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\TicketMsg;
+use App\Models\Alert;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
@@ -80,7 +81,7 @@ class PagesController extends Controller
             return abort(403);
         }
 
-        return view('tickets.see', ['ticket' => $ticket, 'ticketMsgs' => $ticketMsgs, 'page' => 'Ticket - ' . $id]);
+        return view('tickets.see', ['ticket' => $ticket, 'ticketMsgs' => $ticketMsgs, 'page' => 'Ticket / ' . $id]);
     }
 
     public function ticketCreate() {
@@ -101,7 +102,7 @@ class PagesController extends Controller
 
         $ticketMsgs = TicketMsg::where('ticketId', '=', $ticket->id)->get();
 
-        return view('panel.tickets.view', ['ticket' => $ticket, 'ticketMsgs' => $ticketMsgs, 'page' => 'Panel / Tickets - '. $ticket->id]);
+        return view('panel.tickets.view', ['ticket' => $ticket, 'ticketMsgs' => $ticketMsgs, 'page' => 'Panel / Tickets / '. $ticket->id]);
     }
 
     public function user($username) {
@@ -116,5 +117,52 @@ class PagesController extends Controller
 
     public function editDelete() {
         return view('settings.delete', ['page' => 'Delete account']);
+    }
+
+    public function alerts() {
+        $alerts = Alert::where('userId', Auth::user()->id)->get();;
+
+        if($alerts->count() == 0) {
+            $alerts = null;
+        }
+
+        return view('alerts', ['page' => 'Alerts', 'alerts' => $alerts]);
+    }
+
+    public function alertShow($id) {
+        $alert = Alert::find($id);
+
+        if($alert == null) {
+            return abort(404);
+        }
+
+        if(Auth::user()->id !== $alert->userId) {
+            return abort(403);
+        }
+
+        if($alert->read == false) {
+            $alert->read = true;
+            $alert->save();
+        }
+
+        return view('alerts.show', ['alert' => $alert, 'page' => 'Alerts / '. $alert->title]);
+    }
+
+    public function panelAlerts() {
+        return view('panel.alerts.index', ['page' => 'Panel / Alerts']);
+    }
+
+    public function panelAlertShow($id) {
+        $alert = Alert::find($id);
+
+        if($alert == null) {
+            return abort(404);
+        }
+
+        return view('panel.alerts.show', ['alert' => $alert, 'page' => 'Panel / Alerts / '. $alert->title]);
+    }
+
+    public function panelAlertCreate() {
+        return view('panel.alerts.create', ['page' => 'New alert']);
     }
 }

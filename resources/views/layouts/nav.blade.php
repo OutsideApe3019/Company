@@ -1,3 +1,6 @@
+@php
+    use App\Models\Alert;
+@endphp
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -21,23 +24,38 @@
                 </li>
                 @auth
                     @if (Auth::user()->isAdmin)
+                        <div class="vr mobile"></div>
+                        <hr>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('panel') }}">{{ __('Panel') }}</a>
                         </li>
                     @endif
                 @endauth
+                <div class="vr mobile"></div>
+                <hr>
                 @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
                 @else
+                    @php
+                        $totalAlerts = Alert::where('userId', Auth::user()->id)->where('read', false)->count();
+                    @endphp
+                    <li class="nav-item">
+                        <a href="{{ route('user.alerts') }}" class="nav-link">
+                            <i class="fa-solid fa-bell"></i>
+                            @if ($totalAlerts > 0)
+                                <span class="position-absolute top-1 start-1 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                            @endif
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link"><span class=""><i
+                                    class="fa-solid fa-message"></i></span></a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

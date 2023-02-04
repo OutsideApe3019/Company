@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('panel.tickets') }}">{{ __('Tickets') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('panel.alerts') }}">{{ __('Alerts') }}</a>
+                </li>
             </ul>
         </div>
     </div>
