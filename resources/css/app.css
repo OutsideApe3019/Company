@@ -1,3 +1,77 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+    background-color: #f8fafc !important;
+    font-family: 'Nunito', sans-serif !important;
+}
+
+@media (max-width: 1775px) {
+    .users.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .users.scroll table {
+        display: inline-block !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .index.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .index.scroll table {
+        display: inline-block !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .tickets.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .tickets.scroll table {
+        display: inline-block !important;
+    }
+}
+
+@media (max-width: 428px) {
+    .user.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .user.scroll .scrollable {
+        display: inline-block !important;
+    }
+
+    .user.scroll.scrollable .buttons {
+        margin-left: 15px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .user.scroll.banners {
+        overflow: auto !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .alerts.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .alerts.scroll table {
+        display: inline-block !important;
+    }
+}

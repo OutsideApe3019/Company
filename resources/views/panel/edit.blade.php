@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        use App\Models\User;
-        
-        $user = User::find($id);
-    @endphp
-    @include('panel.layouts.nav')
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -33,7 +27,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div>
                                 <label for="lastName" class="form-label">Last name</label>
                                 <div class="input-group mb-3">
@@ -49,7 +42,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div>
                                 <label for="username" class="form-label">Username</label>
                                 <div class="input-group mb-3">
@@ -65,7 +57,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div>
                                 <label for="email" class="form-label">Email</label>
                                 <div class="input-group mb-3">
@@ -78,7 +69,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div>
                                 <label for="isAdmin" class="form-label">Role</label>
                                 <div class="input-group mb-3">
@@ -120,7 +110,6 @@
             </div>
         </div>
     </div>
-
     <script>
         editFirstName = document.getElementById('editFirstName');
         firstName = document.getElementById('firstName');

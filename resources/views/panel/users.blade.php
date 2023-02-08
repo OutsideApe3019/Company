@@ -1,19 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        use App\Models\User;
-        use Illuminate\Support\Carbon;
-        
-        $users = User::withTrashed()->paginate(15);
-        $totalUsers = User::all()->count();
-        $totalLastUsers = User::where('created_at', '>', Carbon::now()->subDays(7))->count();
-        $totalBannedUsers = User::withTrashed()->where('isBanned', true)->count();
-        $totalDeletedUsers = User::withTrashed()->whereNot('deleted_at', null)->count();
-        $totalAdmins = User::withTrashed()->where('isAdmin', true)->count();
-    @endphp
-    @include('panel.layouts.nav')
-    <div class="container-fluid mt-5">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -26,35 +14,36 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                            <div class="scroll users banners">
-                                    <div class="btn btn-primary text-center">
-                                        <span class="fs-1">{{ $totalUsers }}</span>
-                                        <br>
-                                        <span class="fs-5">total users.</span>
-                                    </div>
-                                    <div class="btn @if($totalLastUsers > 0) btn-success @else btn-warning @endif text-center">
-                                        <span class="fs-1">{{ $totalLastUsers }}</span>
-                                        <br>
-                                        <span class="fs-5">users in the last 7 days.</span>
-                                    </div>
-                                    <div class="btn @if($totalBannedUsers > 0) btn-warning @else btn-success @endif text-center">
-                                        <span class="fs-1">{{ $totalBannedUsers }}</span>
-                                        <br>
-                                        <span class="fs-5">total banned users.</span>
-                                    </div>
-                                    <div class="btn @if($totalDeletedUsers > 0) btn-danger @else btn-success @endif text-center">
-                                        <span class="fs-1">{{ $totalDeletedUsers }}</span>
-                                        <br>
-                                        <span class="fs-5">total deleted users.</span>
-                                    </div>
-                                    <div class="btn btn-primary text-center">
-                                        <span class="fs-1">{{ $totalAdmins }}</span>
-                                        <br>
-                                        <span class="fs-5">total admins.</span>
-                                </div>
-                                
+                        <div class="scroll users banners">
+                            <div class="btn btn-primary text-center">
+                                <span class="fs-1">{{ $totalUsers }}</span>
+                                <br>
+                                <span class="fs-5">total users.</span>
                             </div>
-                        
+                            <div
+                                class="btn @if ($totalLastUsers > 0) btn-success @else btn-warning @endif text-center">
+                                <span class="fs-1">{{ $totalLastUsers }}</span>
+                                <br>
+                                <span class="fs-5">users in the last 7 days.</span>
+                            </div>
+                            <div
+                                class="btn @if ($totalBannedUsers > 0) btn-warning @else btn-success @endif text-center">
+                                <span class="fs-1">{{ $totalBannedUsers }}</span>
+                                <br>
+                                <span class="fs-5">total banned users.</span>
+                            </div>
+                            <div
+                                class="btn @if ($totalDeletedUsers > 0) btn-danger @else btn-success @endif text-center">
+                                <span class="fs-1">{{ $totalDeletedUsers }}</span>
+                                <br>
+                                <span class="fs-5">total deleted users.</span>
+                            </div>
+                            <div class="btn btn-primary text-center">
+                                <span class="fs-1">{{ $totalAdmins }}</span>
+                                <br>
+                                <span class="fs-5">total admins.</span>
+                            </div>
+                        </div>
                         <br>
                         {{ $users->links() }}
                         <br>
@@ -86,7 +75,9 @@
                                         <th scope="row">{{ $user->id }}</th>
                                         <td>{{ $user->firstName }}</td>
                                         <td>{{ $user->lastName }}</td>
-                                        <td><a href="{{ route('user', ['username' => $user->username]) }}">{{ $user->username }}</a></td>
+                                        <td><a
+                                                href="{{ route('user', ['username' => $user->username]) }}">{{ $user->username }}</a>
+                                        </td>
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             @if ($user->isAdmin)

@@ -53,9 +53,9 @@ Route::middleware('banned')->group(function () {
 
             Route::prefix('/alerts')->name('.alerts')->group(function () {
                 Route::controller(PagesController::class)->group(function () {
-                    Route::get('', 'panelAlerts');
                     Route::get('create', 'panelAlertCreate')->name('.create');
                     Route::get('/{id}', 'panelAlertShow')->name('.show');
+                    Route::get('', 'panelAlerts');
                 });
 
                 Route::post('/create', [AdminController::class, 'createAlert'])->name('.create');

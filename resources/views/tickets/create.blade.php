@@ -21,6 +21,7 @@
                             <div class="mb-3">
                                 <label for="reason" class="form-label">Reason</label>
                                 <input type="text" name="reason" id="reason" class="form-control @error('reason') is-invalid @enderror" value="{{ old('reason') }}">
+                                <div id="textHelp" class="form-text">Max 50 characters</div>
                                 @error('reason')
                                     <div class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -31,6 +32,7 @@
                             <div class="mb-3">
                                 <label for="text" class="form-label">Explain your problem</label>
                                 <textarea name="text" id="text" class="form-control @error('text') is-invalid @enderror">{{ old('text') }}</textarea>
+                                <div id="textHelp" class="form-text">Max 500 characters</div>
                                 @error('text')
                                     <div class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

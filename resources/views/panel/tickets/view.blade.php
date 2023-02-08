@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('panel.layouts.nav')
-    @php
-        use App\Models\User;
-    @endphp
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-15">
                 <div class="card">
@@ -13,10 +9,10 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span>{{ __('Ticket - ') }} {{ $ticket->reason }}</span>
                             @if ($ticket->status !== 'closed')
-                            <form action="{{ route('panel.tickets.close', ['id' => $ticket->id]) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-danger" type="submit">Close ticket</button>
-                            </form>
+                                <form action="{{ route('panel.tickets.close', ['id' => $ticket->id]) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">Close ticket</button>
+                                </form>
                             @endif
                         </div>
                     </div>
@@ -28,11 +24,10 @@
                         @endif
                         @foreach ($ticketMsgs as $ticketMsg)
                             @if ($ticketMsg->senderId == $ticket->senderId)
-                            @php
-                                $user = User::find($ticketMsg->senderId);
-                                $user = $user->username;
-
-                            @endphp
+                                @php
+                                    $user = User::find($ticketMsg->senderId);
+                                    $user = $user->username;
+                                @endphp
                                 <div class="d-flex justify-content-start mb-5">
                                     <div class="text-break">
                                         <div class="card text-break">
@@ -60,21 +55,25 @@
                                 </div>
                             @endif
                         @endforeach
-                        <form action="{{ route('panel.tickets.edit', ['id'=> $ticket->id]) }}" method="POST">
+                        <form action="{{ route('panel.tickets.edit', ['id' => $ticket->id]) }}" method="POST">
                             @csrf
 
-                            <div class="mb-3 input-group">
+                            <div class="input-group">
                                 <textarea name="text" id="text" class="form-control @error('text') is-invalid @enderror" placeholder="Message"
                                     @if ($ticket->status == 'closed') disabled @endif>{{ old('text') }}</textarea>
+
                                 <button type="submit" class="btn btn-primary input-group-text"
-                                    @if ($ticket->status == 'closed') disabled @endif><i
-                                        class="fa-solid fa-paper-plane"></i></button>
+                                    @if ($ticket->status == 'closed') disabled @endif>
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+
                                 @error('text')
                                     <div class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </div>
                                 @enderror
                             </div>
+                            <div id="textHelp" class="form-text">Max 500 characters</div>
                         </form>
                     </div>
                 </div>

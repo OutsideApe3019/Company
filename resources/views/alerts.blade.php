@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@php
-        use Illuminate\Support\Str;
-    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">

@@ -210,6 +210,10 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'User' => App\Models\User::class,
+        'Alert' => App\Models\Alert::class,
+        'Ticket' => App\Models\Ticket::class,
+        'TicketMsg' => App\Models\TicketMsg::class,
     ])->toArray(),
 
 ];

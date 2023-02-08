@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('panel.layouts.nav')
-    @php
-        use Illuminate\Support\Str;
-    @endphp
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card">

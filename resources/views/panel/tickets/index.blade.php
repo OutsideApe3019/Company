@@ -1,15 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('panel.layouts.nav')
-    @php
-        use App\Models\User;
-        use App\Models\Ticket;
-        
-        $totalTickets = Ticket::where('status', 'open')->count();
-        $totalClosedTickets = Ticket::where('status', 'closed')->count();
-    @endphp
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">

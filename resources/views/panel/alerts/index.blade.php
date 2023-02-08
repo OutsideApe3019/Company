@@ -1,19 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        use App\Models\Alert;
-        use app\Models\User;
-        use Illuminate\Support\Str;
-        
-        $alerts = Alert::paginate(15);
-        
-        $totalAlerts = Alert::count();
-        $totalReadAlerts = Alert::where('read', true)->count();
-        $totalNotReadAlerts = Alert::where('read', false)->count();
-    @endphp
-    @include('panel.layouts.nav')
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -46,7 +34,6 @@
                         </div>
                         <br>
                         <a class="btn btn-primary" href="{{ route('panel.alerts.create') }}">New alert</a>
-
                         @if (!$alerts->isEmpty())
                             <br>
                             {{ $alerts->links() }}
@@ -69,7 +56,6 @@
                                             @php
                                                 $user = User::find($alert->userId);
                                             @endphp
-
                                             <tr>
                                                 <th scope="row">{{ $alert->id }}</th>
                                                 <td>

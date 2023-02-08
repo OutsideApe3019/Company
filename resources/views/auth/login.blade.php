@@ -17,65 +17,54 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
-                            <div class="row mb-3">
-                                <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                            <div>
+                                <label for="email" class="form-label">Email</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" aria-describedby="email" value="{{ old('email') }}">
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
+                                        <div class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                        </span>
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
+                            <div>
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" aria-describedby="password">
+                                    <button class="btn btn-secondary" type="button" id="showPassword"><i
+                                            class="fa-solid fa-eye" id="passwordIcon"></i></button>
                                     @error('password')
-                                        <span class="invalid-feedback" role="alert">
+                                        <div class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                        </span>
+                                        </div>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                        {{ old('remember') ? 'checked' : '' }}>
 
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
                                 </div>
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
-                                    </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
-                                </div>
+                            <div class="d-flex justify-content-between">
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}" target="_blank">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -83,4 +72,20 @@
             </div>
         </div>
     </div>
+    <script>
+        showPassword = document.getElementById('showPassword');
+        password = document.getElementById('password');
+        icon = document.getElementById('passwordIcon');
+        showPassword.addEventListener('click', function() {
+            if (password.getAttribute("type") == "password") {
+                password.setAttribute("type", "text");
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.setAttribute("type", "password");
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
 @endsection

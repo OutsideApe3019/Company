@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('panel.layouts.nav')
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card">
@@ -13,7 +12,6 @@
                         <div class="text-break">
                             <form action="{{ route('panel.alerts.create') }}" method="POST">
                                 @csrf
-
                                 <div class="mb-3">
                                     <label for="reciver" class="form-label">Reciver</label>
                                     <input type="text" class="form-control @error('reciver') is-invalid @enderror"
@@ -25,7 +23,6 @@
                                         </div>
                                     @enderror
                                 </div>
-
                                 <div class=" mb-3">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -37,7 +34,6 @@
                                         </div>
                                     @enderror
                                 </div>
-
                                 <div class=" mb-3">
                                     <label for="text" class="form-label">Text</label>
                                     <textarea type="text" class="form-control @error('text') is-invalid @enderror" id="text" name="text" value="{{ old('text') }}"></textarea>
@@ -48,7 +44,6 @@
                                         </div>
                                     @enderror
                                 </div>
-
                                 <div class="d-flex justify-content-between">
                                     <a href="{{ route('panel.alerts') }}" class="btn btn-danger">Cancel</a>
                                     <button type="submit" class="btn btn-primary">Submit</button>

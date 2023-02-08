@@ -54,7 +54,7 @@
                         <form action="{{ route('ticket.edit', ['id' => $ticket->id]) }}" method="POST">
                             @csrf
 
-                            <div class="mb-3 input-group">
+                            <div class="input-group">
                                 <textarea name="text" id="text" class="form-control @error('text') is-invalid @enderror" placeholder="Message"
                                     @if ($ticket->status == 'closed') disabled @endif>{{ old('text') }}</textarea>
                                 <button type="submit" class="btn btn-primary input-group-text"
@@ -66,6 +66,7 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div id="textHelp" class="form-text">Max 500 characters</div>
                         </form>
                     </div>
                 </div>

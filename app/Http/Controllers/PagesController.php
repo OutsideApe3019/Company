@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Ticket;
-use App\Models\TicketMsg;
-use App\Models\Alert;
+use User;
+use Ticket;
+use TicketMsg;
+use Alert;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class PagesController extends Controller
 {
@@ -20,7 +21,9 @@ class PagesController extends Controller
     }
 
     public function support() {
-        return view('support', ['page' => 'Support']);
+        $tickets = Ticket::where('senderId', '=', Auth::user()->id)->get();
+
+        return view('support', ['page' => 'Support', 'tickets' => $tickets]);
     }
 
     public function editFirstName() {
@@ -44,11 +47,21 @@ class PagesController extends Controller
     }
 
     public function panel() {
-        return view('panel.index', ['page' => 'Panel']);
+        $totalUsers = User::count();
+        $totalTickets = Ticket::where('status', 'open')->count();
+
+        return view('panel.index', ['page' => 'Panel', 'totalUsers' => $totalUsers, 'totalTickets' => $totalTickets]);
     }
 
     public function usersPanel() {
-        return view('panel.users', ['page' => 'Panel / Users']);
+        $users = User::withTrashed()->paginate(15);
+        $totalUsers = User::all()->count();
+        $totalLastUsers = User::where('created_at', '>', Carbon::now()->subDays(7))->count();
+        $totalBannedUsers = User::withTrashed()->where('isBanned', true)->count();
+        $totalDeletedUsers = User::withTrashed()->whereNot('deleted_at', null)->count();
+        $totalAdmins = User::withTrashed()->where('isAdmin', true)->count();
+
+        return view('panel.users', ['page' => 'Panel / Users', 'users' => $users, 'totalUsers' => $totalUsers, 'totalLastUsers' => $totalLastUsers, 'totalBannedUsers' => $totalBannedUsers, 'totalDeletedUsers' => $totalDeletedUsers, 'totalAdmins' => $totalAdmins]);
     }
 
     public function contact() {
@@ -61,10 +74,11 @@ class PagesController extends Controller
 
     public function editUser($id) {
         $user = User::find($id);
+
         if($user == null) {
             return view('panel.null', ['page' => 'User not found', 'title' => 'Edit user', 'body' => 'User not found.']);
         } else {
-            return view('panel.edit', ['page' => 'Edit user', 'id' => $id]);
+            return view('panel.edit', ['page' => 'Edit user', 'id' => $id, 'user' => $user]);
         }
     }
 
@@ -90,7 +104,10 @@ class PagesController extends Controller
 
     public function panelTickets() {
         $tickets = Ticket::where('status', '=', 'open')->paginate(15);
-        return view('panel.tickets.index', ['page' => 'Panel / Tickets', 'tickets' => $tickets]);
+        $totalTickets = Ticket::where('status', 'open')->count();
+        $totalClosedTickets = Ticket::where('status', 'closed')->count();
+
+        return view('panel.tickets.index', ['page' => 'Panel / Tickets', 'tickets' => $tickets, 'totalTickets' => $totalTickets, 'totalClosedTickets' => $totalClosedTickets]);
     }
 
     public function panelTicketSee($id) {
@@ -149,7 +166,13 @@ class PagesController extends Controller
     }
 
     public function panelAlerts() {
-        return view('panel.alerts.index', ['page' => 'Panel / Alerts']);
+        $alerts = Alert::paginate(15);
+        
+        $totalAlerts = Alert::count();
+        $totalReadAlerts = Alert::where('read', true)->count();
+        $totalNotReadAlerts = Alert::where('read', false)->count();
+
+        return view('panel.alerts.index', ['page' => 'Panel / Alerts', 'alerts' => $alerts, 'totalAlerts' => $totalAlerts, 'totalReadAlerts' => $totalReadAlerts, 'totalNotReadAlerts' => $totalNotReadAlerts]);
     }
 
     public function panelAlertShow($id) {
@@ -164,5 +187,9 @@ class PagesController extends Controller
 
     public function panelAlertCreate() {
         return view('panel.alerts.create', ['page' => 'New alert']);
+    }
+
+    public function panelSettingsGeneral() {
+        return view('panel.settings.general', ['page' => 'General settings']);
     }
 }
