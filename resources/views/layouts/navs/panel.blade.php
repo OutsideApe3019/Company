@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('panel.alerts') }}">{{ __('Alerts') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('panel.news') }}">{{ __('News') }}</a>
+                </li>
             </ul>
         </div>
     </div>

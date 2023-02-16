@@ -6,6 +6,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -61,6 +62,10 @@ Route::middleware('banned')->group(function () {
                 Route::post('/create', [AdminController::class, 'createAlert'])->name('.create');
             });
 
+            Route::get('/news', [PagesController::class, 'panelNews'])->name('.news');
+            Route::get('/news/create', [PagesController::class, 'panelNewsCreate'])->name('.news.create');
+            Route::post('/news/create', [AdminController::class, 'createNew']);
+
             Route::get('', [PagesController::class, 'panel']);
         });
 
@@ -114,7 +119,17 @@ Route::middleware('banned')->group(function () {
         Route::get('/support', [PagesController::class, 'support'])->name('support');
     });
 
+    Route::name('new')->prefix('/new/{id}')->group(function () {
+        Route::controller(NewsController::class)->group(function () {
+            Route::post('/like', 'like')->name('.like');
+            Route::post('/comment', 'comment')->name('.comment');
+        });
+
+        Route::get('', [PagesController::class, 'showNew']);
+    });
+
     Route::controller(PagesController::class)->group(function () {
+        Route::get('/', 'home')->name('home');
         Route::get('/terms', 'terms')->name('terms');
         Route::get('/contact', 'contact')->name('contact');
         Route::get('/cookies', 'cookies')->name('cookies');
@@ -122,8 +137,6 @@ Route::middleware('banned')->group(function () {
     });
 
     Auth::routes();
-
-    Route::get('/', [HomeController::class, 'index'])->name('home');
 });
 
 Route::any('/test', function () {

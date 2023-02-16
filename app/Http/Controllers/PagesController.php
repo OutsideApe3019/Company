@@ -7,11 +7,19 @@ use User;
 use Ticket;
 use TicketMsg;
 use Alert;
+use News;
+use NewsComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
 class PagesController extends Controller
 {
+    public function home() {
+        $news = News::orderBy('id', 'desc')->paginate(5);
+
+        return view('home', ['page' => 'Home', 'news' => $news]);
+    }
+
     public function terms() {
         return view('terms', ['page' => 'Terms and Conditions']);
     }
@@ -49,8 +57,10 @@ class PagesController extends Controller
     public function panel() {
         $totalUsers = User::count();
         $totalTickets = Ticket::where('status', 'open')->count();
+        $totalAlerts = Alert::count();
+        $totalNews = News::count();
 
-        return view('panel.index', ['page' => 'Panel', 'totalUsers' => $totalUsers, 'totalTickets' => $totalTickets]);
+        return view('panel.index', ['page' => 'Panel', 'totalUsers' => $totalUsers, 'totalTickets' => $totalTickets, 'totalAlerts' => $totalAlerts, 'totalNews' => $totalNews]);
     }
 
     public function usersPanel() {
@@ -191,5 +201,28 @@ class PagesController extends Controller
 
     public function panelSettingsGeneral() {
         return view('panel.settings.general', ['page' => 'General settings']);
+    }
+
+    public function showNew($id) {
+        $new = News::where('id', $id)->first();
+
+        if($new == null) {
+            return abort(404);
+        }
+
+        $comments = NewsComment::where('newId', $new->id)->get();
+
+        return view('news.show', ['page' => $new->title, 'new' => $new, 'comments' => $comments]);
+    }
+
+    public function panelNews() {
+        $totalNews = News::count();
+        $news = News::paginate(15);
+
+        return view('panel.news.index', ['page' => 'News', 'news' => $news, 'totalNews' => $totalNews]);
+    }
+
+    public function panelNewsCreate() {
+        return view('panel.news.create', ['page' => 'New new']);
     }
 }

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Ticket;
-use App\Models\Alert;
-use App\Models\TicketMsg;
+use User;
+use Ticket;
+use Alert;
+use TicketMsg;
+use News;
 
 class AdminController extends Controller
 {
@@ -142,4 +143,20 @@ class AdminController extends Controller
 
         return redirect()->route('panel.alerts')->with('success', 'Alert created successfully.');
     }
+
+    public function createNew(Request $request) {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:100'],
+            'text' => ['required', 'string', 'max:10000'],
+        ]);
+
+        $data = [
+            'title' => $request->input('title'), 
+            'text' => $request->input('text'),
+        ];
+
+        News::create($data);
+
+        return redirect()->route('panel.news')->with('success', 'New created successfully.');
+    } 
 }

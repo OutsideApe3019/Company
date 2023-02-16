@@ -20,6 +20,16 @@
                                 <br>
                                 <span class="fs-5">total tickets</span>
                             </a>
+                            <a class="btn btn-primary text-center" href="{{ route('panel.alerts') }}">
+                                <span class="fs-1">{{ $totalAlerts }}</span>
+                                <br>
+                                <span class="fs-5">total alerts</span>
+                            </a>
+                            <a class="btn  btn-primary  text-center" href="{{ route('panel.news') }}">
+                                <span class="fs-1">{{ $totalNews }}</span>
+                                <br>
+                                <span class="fs-5">total news</span>
+                            </a>
                         </div>
                     </div>
                 </div>

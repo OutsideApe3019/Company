@@ -6,7 +6,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Panel') }}
+                        {{ __('Panel / Alerts') }}
                     </div>
                     <div class="card-body">
                         @if (session('success'))

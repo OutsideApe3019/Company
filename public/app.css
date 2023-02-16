@@ -23,6 +23,15 @@ body {
     .index.scroll table {
         display: inline-block !important;
     }
+
+    .news.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .news.scroll table {
+        display: inline-block !important;
+    }
 }
 
 @media (max-width: 992px) {
@@ -32,6 +41,15 @@ body {
     }
     
     .tickets.scroll table {
+        display: inline-block !important;
+    }
+
+    .alerts.scroll {
+        overflow: auto !important;
+        white-space: nowrap !important;
+    }
+    
+    .alerts.scroll table {
         display: inline-block !important;
     }
 }
@@ -61,17 +79,6 @@ body {
     .user.scroll.banners {
         overflow: auto !important;
         white-space: nowrap !important;
-        display: inline-block !important;
-    }
-}
-
-@media (max-width: 992px) {
-    .alerts.scroll {
-        overflow: auto !important;
-        white-space: nowrap !important;
-    }
-    
-    .alerts.scroll table {
         display: inline-block !important;
     }
 }
